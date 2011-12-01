@@ -4,6 +4,7 @@
 #include <limits.h>
 
 #include "cma.h"
+#include "debug.h"
 
 #define ITEMNOTFOUND ((void *)-1)
 
@@ -17,11 +18,15 @@ static struct {
 } class_counters={0,0,0,0,0,0};
 
 static MNode class_AddToList(MNode list, MNode item) {
+  ENTER("class_AddToList");
+  
   item->next = list;
-  return item;
+  EXIT("class_AddToList");
+  RETURN(item);
 }
 
 static MNode class_RemoveFromList(MNode list,MNode item) {
+  ENTER("class_RemoveFromList");
   MNode p,prev;
 
   prev = NULL;
@@ -31,26 +36,35 @@ static MNode class_RemoveFromList(MNode list,MNode item) {
 	list=p->next;
       else
 	prev->next = p->next;
-      return list;
+      EXIT("class_RemoveFromList");
+      RETURN(list);
     }
     prev=p;
   }
   //not in list..
-  return ITEMNOTFOUND;
+  EXIT("class_RemoveFromList");
+  RETURN(ITEMNOTFOUND);
 }
 
 
 static void class_printList(MNode list) {
-  if (!list)
+  ENTER("class_printList");
+  if (!list) {
+    EXIT("class_printList");
     return;
+  }
   printf("Node %p, %d\n",list,list->size);
   class_printList(list->next);
+  EXIT("class_printList");
 }
 
 int class_memory(void *mem, size_t size) {
+  ENTER("class_memory");
+  
   MNode item;
   if (class_membase ) {
-    return FALSE;
+    RETURN(FALSE);
+    EXIT("class_memory");
   }
 
   class_membase = mem;
@@ -62,18 +76,25 @@ int class_memory(void *mem, size_t size) {
   item->next = NULL;
   
   class_nouse = class_AddToList(class_nouse,item);
+  EXIT("class_memory");
 }
 
 void *class_calloc(size_t nmemb, size_t size) {
+  ENTER("class_calloc");
+  
   void *mem;
 
   mem = class_malloc(nmemb*size);
   memset(mem,0,nmemb*size);
   class_counters.calloc += 1;
-  return mem;
+  
+  EXIT("class_memory");
+  RETURN(mem);
 }
 
 static MNode class_findNoUse(size_t target) {
+  ENTER("class_findNoUse");
+  
   size_t closeness=LONG_MAX;
   size_t c;
   MNode best=NULL;
@@ -86,10 +107,13 @@ static MNode class_findNoUse(size_t target) {
       closeness=c;
     }
   }
-  return best;
+  EXIT("class_memory");
+  RETURN(best);
 }
 
 MNode class_splitNode(MNode org,size_t size) {
+  ENTER("class_splitNode");
+  
 	MNode extra=NULL;
 	size_t orgsz = org->size;
 	
@@ -101,10 +125,13 @@ MNode class_splitNode(MNode org,size_t size) {
 		extra->size = orgsz-sizeof(struct MemNode)-size;
 	}
 	
-	return extra;
+	EXIT("class_memory");
+	RETURN(extra);
 }
 
 void *class_malloc(size_t size) {
+  ENTER("class_malloc");
+  
   MNode newnode = NULL,extra = NULL;
 
   newnode = class_findNoUse(size);
@@ -120,15 +147,18 @@ void *class_malloc(size_t size) {
     newnode->next = NULL;
     class_inuse = class_AddToList(class_inuse,newnode);
     class_counters.malloc += 1;
-    return (void *)newnode+sizeof(struct MemNode);
+    RETURN( (void *)newnode+sizeof(struct MemNode));
   }
   else {
-    return NULL;
+    EXIT("class_memory");
+    RETURN( NULL );
   }
 }
 
 //attempt to find adjacent unused nodes and collapse them.
 static void class_garbage() {
+  ENTER("class_garbage");
+  
   MNode here = NULL, there = NULL;
   here = class_nouse;
 
@@ -147,16 +177,22 @@ static void class_garbage() {
     }    
     here = here->next;
   }
+  EXIT("class_memory");
 }
 
 void class_free(void *ptr) {
+  ENTER("class_free");
+  
   MNode cur=NULL;
-  if (!ptr)
+  if (!ptr) {
+  EXIT("class_memory");
     return;
+  }
  
   cur=class_RemoveFromList(class_inuse,PTRTOMNODE(ptr));
   if (cur==ITEMNOTFOUND) {//not our pointer
-    return;
+    EXIT("class_memory");
+    return;    
   }
   class_inuse = cur;
   class_nouse = class_AddToList(class_nouse,PTRTOMNODE(ptr));
@@ -165,22 +201,30 @@ void class_free(void *ptr) {
 }
 
 void *class_realloc(void *ptr, size_t size) {
+  ENTER("class_realloc");
+  
   void *mem;
   size_t oldsize;
 
   mem=class_malloc(size);
-  if (!mem)
-    return NULL;
+  if (!mem) {
+    EXIT("class_memory");
+    RETURN( NULL );
+  }
 
   oldsize=PTRTOMNODE(ptr)->size;
   memcpy(mem,ptr,oldsize);
 
   class_free(ptr);
   class_counters.realloc += 1;
-  return mem;
+  
+  EXIT("class_memory");
+  RETURN( mem );
 }
 
 void class_stats() {
+  ENTER("class_stats");
+  
   printf("InUse\n");
   class_printList(class_inuse);
 
