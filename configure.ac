@@ -4,7 +4,7 @@
 AC_PREREQ([2.68])
 AC_INIT([cma-pkg], [0.01], [jammen@gmail.com])
 AM_INIT_AUTOMAKE(cma-pkg, 0.01)
-AC_CONFIG_SRCDIR([src/blocksize.c])
+AC_CONFIG_SRCDIR([src/])
 
 
 # Checks for programs.
