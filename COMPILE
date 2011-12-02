@@ -1,0 +1,11 @@
+
+To install simply run the following commands:
+
+  $	./confgure
+  $	make
+  $	sudo make install
+
+To uninstall:
+
+  $	sudo make uninstall
+
