@@ -5,6 +5,7 @@ AC_PREREQ([2.68])
 AC_INIT([cma-pkg], [0.01], [jammen@gmail.com])
 AM_INIT_AUTOMAKE(cma-pkg, 0.01)
 AC_CONFIG_SRCDIR([src/])
+AC_CONFIG_MACRO_DIR([m4])
 
 
 # Checks for programs.

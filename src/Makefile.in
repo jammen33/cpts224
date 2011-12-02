@@ -39,7 +39,10 @@ bin_PROGRAMS = ma$(EXEEXT) blocksize$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
+	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
+	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -74,10 +77,10 @@ libcma_la_OBJECTS = $(am_libcma_la_OBJECTS)
 PROGRAMS = $(bin_PROGRAMS)
 am_blocksize_OBJECTS = blocksize.$(OBJEXT)
 blocksize_OBJECTS = $(am_blocksize_OBJECTS)
-blocksize_LDADD = $(LDADD)
+blocksize_DEPENDENCIES = libcma.la
 am_ma_OBJECTS = ma.$(OBJEXT)
 ma_OBJECTS = $(am_ma_OBJECTS)
-ma_LDADD = $(LDADD)
+ma_DEPENDENCIES = libcma.la
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -105,9 +108,7 @@ AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
-
-# what flags you want to pass to the C compiler & linker
-CFLAGS = --pedantic -Wall -std=c99 -O2 -W
+CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CYGPATH_W = @CYGPATH_W@
@@ -129,7 +130,7 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LD = @LD@
-LDFLAGS = 
+LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
@@ -211,10 +212,16 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+
+# what flags you want to pass to the C compiler & linker
+AM_CFLAGS = --pedantic -Wall -std=c99 -O2 -W
+AM_LDFLAGS = 
 lib_LTLIBRARIES = libcma.la
 libcma_la_SOURCES = cma.c
-blocksize_SOURCES = blocksize.c libcma.la
-ma_SOURCES = ma.c libcma.la
+blocksize_SOURCES = blocksize.c cma
+ma_SOURCES = ma.c
+ma_LDADD = libcma.la
+blocksize_LDADD = libcma.la
 all: all-am
 
 .SUFFIXES:
