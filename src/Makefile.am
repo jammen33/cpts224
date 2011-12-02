@@ -7,5 +7,5 @@ LDFLAGS =
 bin_PROGRAMS = ma blocksize
 lib_LTLIBRARIES = libcma.la
 libcma_la_SOURCES = cma.c
-blocksize_SOURCES = blocksize.c libcma.la
-ma_SOURCES = ma.c libcma.la
+blocksize_SOURCES = blocksize.c libcma
+ma_SOURCES = ma.c libcma
