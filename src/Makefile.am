@@ -5,5 +5,7 @@ LDFLAGS =
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
 bin_PROGRAMS = ma blocksize
-ma_SOURCES = ma.c cma.h cma.c debug.h
-blocksize_SOURCES = blocksize.c cma.c cma.h debug.h
+lib_LTLIBRARIES = libcma.la
+libcma_la_SOURCES = cma.c
+blocksize_SOURCES = blocksize.c libcma.la
+ma_SOURCES = ma.c libcma.la

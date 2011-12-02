@@ -11,6 +11,7 @@ AC_CONFIG_SRCDIR([src/])
 AC_PROG_CC
 
 # Checks for libraries.
+AC_PROG_LIBTOOL
 
 # Checks for header files.
 AC_CHECK_HEADERS([limits.h stdlib.h string.h])
