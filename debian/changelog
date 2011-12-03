@@ -1,0 +1,5 @@
+cpts (224-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Joseph Carter (Cosmix Frost) <jammen@gmail.com>  Fri, 02 Dec 2011 20:25:21 -0800
