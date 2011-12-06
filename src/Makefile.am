@@ -11,3 +11,4 @@ blocksize_SOURCES = blocksize.c cma
 ma_SOURCES = ma.c
 ma_LDADD = libcma.la
 blocksize_LDADD = libcma.la
+nobase_include_HEADERS = cma/cma.h cma/debug.h
