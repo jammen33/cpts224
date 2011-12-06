@@ -5,7 +5,7 @@ For a local install
   $	./configure --prefix=$HOME
 
 For a global install
-  $	./configure --prefix=/usr/bin
+  $	./configure --prefix=/usr
   
 
   $	make

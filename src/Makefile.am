@@ -6,9 +6,9 @@ AM_LDFLAGS =
 # the previous manual Makefile
 bin_PROGRAMS = ma blocksize
 lib_LTLIBRARIES = libcma.la
-libcma_la_SOURCES = cma.c
-blocksize_SOURCES = blocksize.c cma
-ma_SOURCES = ma.c
+libcma_la_SOURCES = cma.c cma/cma.h cma/debug.h
+blocksize_SOURCES = blocksize.c cma cma/cma.h
+ma_SOURCES = ma.c cma/cma.h
 ma_LDADD = libcma.la
 blocksize_LDADD = libcma.la
 nobase_include_HEADERS = cma/cma.h cma/debug.h
