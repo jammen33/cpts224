@@ -1,0 +1,12 @@
+a2df6ce7d4915a5e16a8d89e9401a8e2  usr/bin/blocksize
+44ffc69058769dd337d170d507f2eaa5  usr/bin/ma
+a9b99fcee09abaa39424298f8531cda9  usr/include/cma/cma.h
+67d390f956b2bd96aec11bb381af2f86  usr/include/cma/debug.h
+2458b9dc43329fd18478026b1950adae  usr/lib/libcma.a
+40854689f23c9d4510cf2a2f38f20afd  usr/lib/libcma.la
+25970350f777236a14e65fab5ff9d1f2  usr/lib/libcma.so.0.0.0
+b7b1e314614cf326c6e2b6eba1540682  usr/share/doc/cpts/README
+a7e59a46156862612c55ec27cde40f15  usr/share/doc/cpts/README.Debian
+c47c7c7383225ab55ff591cb59c41e6b  usr/share/doc/cpts/TODO
+e1646853201360a04f42dec48460299f  usr/share/doc/cpts/changelog.Debian.gz
+ce037ca2fa925de825ba115206ef92a2  usr/share/doc/cpts/copyright

@@ -1,0 +1,14 @@
+Source: cpts
+Section: unknown
+Priority: extra
+Maintainer: Joseph Carter <jammen@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev
+Standards-Version: 3.9.2
+Homepage: https://github.com/jammen33/cpts224
+#Vcs-Git: git://git.debian.org/collab-maint/cpts.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/cpts.git;a=summary
+
+Package: cpts
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: C memory manager library.

@@ -1,0 +1,17 @@
+
+To install simply run the following commands:
+
+For a local install
+  $	./configure --prefix=$HOME
+
+For a global install
+  $	./configure --prefix=/usr/bin
+  
+
+  $	make
+  $	sudo make install
+
+To uninstall:
+
+  $	sudo make uninstall
+

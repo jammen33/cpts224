@@ -1,0 +1,2 @@
+shlibs:Depends=cpts, libc6 (>= 2.3.4)
+misc:Depends=

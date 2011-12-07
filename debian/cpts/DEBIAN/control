@@ -1,0 +1,10 @@
+Package: cpts
+Version: 224-1
+Architecture: i386
+Maintainer: Joseph Carter <jammen@gmail.com>
+Installed-Size: 112
+Depends: libc6 (>= 2.3.4)
+Section: unknown
+Priority: extra
+Homepage: https://github.com/jammen33/cpts224
+Description: C memory manager library.
